@@ -7,6 +7,7 @@ function node:init(parent, x, y)
 	self.x = x
 	self.y = y
 	self.neighbors = {}
+	self.blocking = false
 end
 
 function node:neighbors()
@@ -27,6 +28,10 @@ function node:neighbors()
 			coroutine.yield(self.parent[self.x][self.y + 1])
 		end
 	end)
+end
+
+function node:distanceFrom(arg)
+	return math.sqrt((self.x - arg.x)^2 + (self.y - arg.y)^2)
 end
 
 function node:draw(x, y, radius)

@@ -3,7 +3,10 @@ require 'node'
 
 map = class:subclass()
 
-function map:init(width, height)
+function map:init(x, y, width, height, radius)
+	self.x = x
+	self.y = y
+	self.radius = radius
 	self.width = width
 	self.height = height
 
@@ -19,7 +22,17 @@ end
 function map:draw(x, y, radius)
 	for i = 1, self.width do
 		for j = 1, self.height do
-			self[i][j]:draw(x, y, radius)
+			self[i][j]:draw()
 		end
 	end
+end
+
+function map:drawRoute(route)
+	local line = {}
+	for _, k in ipairs(route) do
+		local x, y = k:getPositionOnScreen()
+		table.insert(line, x)
+		table.insert(line, y)
+	end
+	love.graphics.line(line)
 end

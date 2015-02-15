@@ -1,8 +1,10 @@
 require 'class'
+require 'util'
 require 'map'
 
 function love.load()
-	myMap = map:new(20, 20)
+	myMap = map:new(0, 0, 20, 20, 10)
+	myRoute = myMap[1][2]:getRoute(myMap[20][15])
 end
 
 function love.update(dt)
@@ -10,5 +12,6 @@ function love.update(dt)
 end
 
 function love.draw()
-	myMap:draw(0, 0, 10)
+	myMap:draw()
+	map:drawRoute(myRoute)
 end

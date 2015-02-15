@@ -18,4 +18,5 @@ end
 
 function love.mousepressed(x, y, b)
 	myMap:onClick(x, y)
+	myRoute = myMap[1][2]:getRoute(myMap[20][15])
 end

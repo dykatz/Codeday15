@@ -35,21 +35,9 @@ function node:distanceFrom(arg)
 	return math.sqrt((self.x - arg.x)^2 + (self.y - arg.y)^2)
 end
 
-local function reconstructPath(cameFrom, current)
-	local totalPath = {current}
-
-	while not table.find(cameFrom, current) and current ~= nil do
-		current = current.cameFrom
-		table.insert(totalPath, current)
-	end
-
-	return totalPath
-end
-
 function node:getRoute(goal)
 	local closedSet = {}
 	local openSet = {self}
-	local cameFrom = {}
 	self.gScore = 0
 	self.fScore = self.gScore + self:distanceFrom(goal)
 
@@ -58,7 +46,14 @@ function node:getRoute(goal)
 		local current = openSet[1]
 
 		if current == goal then
-			return reconstructPath(cameFrom, goal)
+			local totalPath = {}
+
+			while current ~= nil do
+				table.insert(totalPath, 1, current)
+				current = current.cameFrom
+			end
+
+			return totalPath
 		end
 
 		table.remove(openSet, 1)
@@ -73,7 +68,7 @@ function node:getRoute(goal)
 					neighbor.gScore = tg
 					neighbor.fScore = neighbor.gScore + neighbor:distanceFrom(goal)
 
-					if not table.contains(openSet, neighbor) then
+					if not table.contains(openSet, neighbor) and not neighbor.blocking then
 						table.insert(openSet, neighbor)
 					end
 				end

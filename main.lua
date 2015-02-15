@@ -12,6 +12,9 @@ function love.update(dt)
 end
 
 function love.draw()
+	love.graphics.print("press escape to exit", 500, 535)
+	love.graphics.print("Start Wave", 65, 535)
+	love.graphics.rectangle('line', 50, 520, 100, 50)
 	myMap:draw()
 end
 
@@ -28,4 +31,9 @@ function love.keypressed(k)
 		myMap.creepEntranceNode = myMap:randomEdgeNode()
 		myMap:regenerateRoute()
 	end
+end
+function love.keypressed(key)
+   if key == "escape" then
+      love.event.quit()
+   end
 end

@@ -94,7 +94,14 @@ end
 function node:onClick(mouseX, mouseY)
 	local myX, myY = self:getPositionOnScreen()
 
-	if (mouseX - myX)^2 + (mouseY - myY)^2 < self.parent.radius^2 then
+	if (mouseX - myX)^2 + (mouseY - myY)^2 < self.parent.radius^2 and not self:isEdgeNode() then
 		self.blocking = not self.blocking
+		if not self.parent.creepEntranceNode:getRoute(self.parent:centerNode()) then
+			self.blocking = not self.blocking
+		end
 	end
+end
+
+function node:isEdgeNode()
+	return self.x == 1 or self.x == self.parent.width or self.y == 1 or self.y == self.parent.height
 end

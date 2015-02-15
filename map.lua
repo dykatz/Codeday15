@@ -9,6 +9,7 @@ function map:init(x, y, width, height, radius)
 	self.radius = radius
 	self.width = width
 	self.height = height
+	self.creeps = {}
 
 	for x = 1, width do
 		self[x] = {}
@@ -17,6 +18,9 @@ function map:init(x, y, width, height, radius)
 			self[x][y] = node:new(self, x, y)
 		end
 	end
+
+	self.creepEntranceNode = self:randomEdgeNode()
+	self:regenerateRoute()
 end
 
 function map:draw(x, y, radius)
@@ -25,6 +29,7 @@ function map:draw(x, y, radius)
 			self[i][j]:draw()
 		end
 	end
+	self:drawRoute(self.route)
 end
 
 function map:drawRoute(route)
@@ -55,10 +60,19 @@ function map:randomNode()
 	return self[love.math.random(1, self.width)][love.math.random(1, self.height)]
 end
 
+function map:centerNode()
+	return self[math.ceil(self.width / 2)][math.ceil(self.height / 2)]
+end
+
+function map:regenerateRoute()
+	self.route = self.creepEntranceNode:getRoute(self:centerNode())
+end
+
 function map:onClick(x, y)
 	for _, row in ipairs(self) do
 		for _, n in ipairs(row) do
 			n:onClick(x, y)
 		end
 	end
+	self:regenerateRoute()
 end

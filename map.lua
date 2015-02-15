@@ -51,6 +51,10 @@ function map:randomEdgeNode()
 	end
 end
 
+function map:randomNode()
+	return self[love.math.random(1, self.width)][love.math.random(1, self.height)]
+end
+
 function map:onClick(x, y)
 	for _, row in ipairs(self) do
 		for _, n in ipairs(row) do

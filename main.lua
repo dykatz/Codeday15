@@ -4,7 +4,7 @@ require 'map'
 
 function love.load()
 	myMap = map:new(0, 0, 20, 20, 10)
-	myRoute = myMap[1][2]:getRoute(myMap[20][15])
+	myRoute = myMap:randomEdgeNode():getRoute(myMap:randomEdgeNode())
 end
 
 function love.update(dt)
@@ -18,5 +18,5 @@ end
 
 function love.mousepressed(x, y, b)
 	myMap:onClick(x, y)
-	myRoute = myMap[1][2]:getRoute(myMap[20][15])
+	myRoute = myMap:randomEdgeNode():getRoute(myMap:randomEdgeNode())
 end

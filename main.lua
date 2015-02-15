@@ -15,3 +15,7 @@ function love.draw()
 	myMap:draw()
 	map:drawRoute(myRoute)
 end
+
+function love.mousepressed(x, y, b)
+	myMap:onClick(x, y)
+end

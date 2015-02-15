@@ -99,7 +99,7 @@ end
 function node:onClick(mouseX, mouseY)
 	local myX, myY = self:getPositionOnScreen()
 
-	if myX^2 + myY^2 < self.parent.radius^2 then
+	if (mouseX - myX)^2 + (mouseY - myY)^2 < self.parent.radius^2 then
 		self.blocking = not self.blocking
 	end
 end

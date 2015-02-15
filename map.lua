@@ -36,3 +36,25 @@ function map:drawRoute(route)
 	end
 	love.graphics.line(line)
 end
+
+function map:randomEdgeNode()
+	local nodenum = love.math.random(1, (self.width + self.height) * 2 - 4)
+
+	if nodenum <= self.width then
+		return self[nodenum][1]
+	elseif nodenum <= self.width + self.height - 1 then
+		return self[self.width][nodenum - self.width]
+	elseif nodenum <= 2 * self.width + self.height - 2 then
+		return self[2 * self.width + self.height - 2 - nodenum][self.height]
+	else
+		return self[1][(self.width + self.height) * 2 - 4 - nodenum]
+	end
+end
+
+function map:onClick(x, y)
+	for _, row in ipairs(self) do
+		for _, n in ipairs(row) do
+			n:onClick(x, y)
+		end
+	end
+end

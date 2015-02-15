@@ -8,6 +8,7 @@ function node:init(parent, x, y)
 	self.x = x
 	self.y = y
 	self.blocking = false
+	self.range = 0
 	self.gScore = 0
 end
 
@@ -94,7 +95,7 @@ end
 function node:onClick(mouseX, mouseY)
 	local myX, myY = self:getPositionOnScreen()
 
-	if (mouseX - myX)^2 + (mouseY - myY)^2 < self.parent.radius^2 and not self:isEdgeNode() then
+	if (mouseX - myX)^2 + (mouseY - myY)^2 < self.parent.radius^2 and not self:isEdgeNode() and not self.parent.inWave then
 		self.blocking = not self.blocking
 		if not self.parent.creepEntranceNode:getRoute(self.parent:centerNode()) then
 			self.blocking = not self.blocking

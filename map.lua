@@ -10,6 +10,8 @@ function map:init(x, y, width, height, radius)
 	self.radius = radius
 	self.width = width
 	self.height = height
+	self.inWave = false
+	self.wave = 0
 	self.money = 30
 	self.health = 20
 	self.creeps = {}
@@ -85,11 +87,23 @@ function map:onClick(x, y)
 		end
 	end
 
-	self:regenerateRoute()
+	if not self.inWave then
+		self:regenerateRoute()
+	end
 end
 
 function map:update(dt)
 	for _, creep in pairs(self.creeps) do
 		creep:update(dt)
 	end
+
+	if #self.creeps == 0 and self.inWave then
+		self.inWave = false
+		self.creepEntranceNode = self:randomEdgeNode()
+	end
+end
+
+function map:startWave()
+	self.wave = self.wave + 1
+	self.inWave = true
 end

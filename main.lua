@@ -5,7 +5,6 @@ require 'creep'
 
 function love.load()
 	myMap = map:new(0, 0, 35, 25, 10)
-	myCreep = creep:new(myMap)
 end
 
 function love.update(dt)

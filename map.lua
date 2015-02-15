@@ -1,5 +1,6 @@
 require 'class'
 require 'node'
+require 'creep'
 
 map = class:subclass()
 
@@ -9,6 +10,8 @@ function map:init(x, y, width, height, radius)
 	self.radius = radius
 	self.width = width
 	self.height = height
+	self.money = 30
+	self.health = 20
 	self.creeps = {}
 
 	for x = 1, width do
@@ -29,16 +32,23 @@ function map:draw(x, y, radius)
 			self[i][j]:draw()
 		end
 	end
+
 	self:drawRoute(self.route)
+
+	for _, creep in ipairs(self.creeps) do
+		creep:draw()
+	end
 end
 
 function map:drawRoute(route)
 	local line = {}
+
 	for _, k in ipairs(route) do
 		local x, y = k:getPositionOnScreen()
 		table.insert(line, x)
 		table.insert(line, y)
 	end
+
 	love.graphics.line(line)
 end
 
@@ -74,5 +84,12 @@ function map:onClick(x, y)
 			n:onClick(x, y)
 		end
 	end
+
 	self:regenerateRoute()
+end
+
+function map:update(dt)
+	for _, creep in pairs(self.creeps) do
+		creep:update(dt)
+	end
 end

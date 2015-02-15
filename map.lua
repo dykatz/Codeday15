@@ -47,7 +47,7 @@ function map:randomEdgeNode()
 	elseif nodenum <= 2 * self.width + self.height - 2 then
 		return self[2 * self.width + self.height - 2 - nodenum][self.height]
 	else
-		return self[1][(self.width + self.height) * 2 - 4 - nodenum]
+		return self[1][(self.width + self.height) * 2 - 2 - nodenum]
 	end
 end
 

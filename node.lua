@@ -48,7 +48,7 @@ function node:getRoute(goal)
 		if current == goal then
 			local totalPath = {}
 
-			while current ~= nil do
+			while not table.find(totalPath, current) and current ~= nil do
 				table.insert(totalPath, 1, current)
 				current = current.cameFrom
 			end

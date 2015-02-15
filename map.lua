@@ -55,16 +55,16 @@ function map:drawRoute(route)
 end
 
 function map:randomEdgeNode()
-	local nodenum = love.math.random(1, (self.width + self.height) * 2 - 4)
+	local nodenum = love.math.random(1, (self.width - 2) * 2 + (self.height - 2) * 2)
 
-	if nodenum <= self.width then
-		return self[nodenum][1]
-	elseif nodenum <= self.width + self.height - 1 then
-		return self[self.width][nodenum - self.height]
-	elseif nodenum <= 2 * self.width + self.height - 2 then
-		return self[2 * self.width + self.height - 1 - nodenum][self.height]
+	if nodenum <= self.width - 2 then
+		return self[nodenum + 1][1]
+	elseif nodenum <= (self.width - 2) + (self.height - 2) then
+		return self[1][nodenum - (self.width - 2) + 1]
+	elseif nodenum <= 2 * (self.width - 2) + (self.height - 2) then
+		return self[nodenum - (self.width - 2) - (self.height - 2) + 1][self.height]
 	else
-		return self[1][(self.width + self.height) * 2 - 2 - nodenum]
+		return self[self.width][nodenum - 2 * (self.width - 2) - (self.height - 2) + 1]
 	end
 end
 

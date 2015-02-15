@@ -16,5 +16,16 @@ function love.draw()
 end
 
 function love.mousepressed(x, y, b)
-	myMap:onClick(x, y)
+	if b == 'l' then
+		myMap:onClick(x, y)
+	elseif b == 'r' then
+		myMap:onRightClick(x, y)
+	end
+end
+
+function love.keypressed(k)
+	if k == 'r' then
+		myMap.creepEntranceNode = myMap:randomEdgeNode()
+		myMap:regenerateRoute()
+	end
 end

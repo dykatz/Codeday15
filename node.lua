@@ -103,6 +103,10 @@ function node:onClick(mouseX, mouseY)
 	end
 end
 
+function node:onRightClick(mouseX, mouseY)
+
+end
+
 function node:isEdgeNode()
 	return self.x == 1 or self.x == self.parent.width or self.y == 1 or self.y == self.parent.height
 end

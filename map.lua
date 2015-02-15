@@ -100,6 +100,7 @@ function map:update(dt)
 	if #self.creeps == 0 and self.inWave then
 		self.inWave = false
 		self.creepEntranceNode = self:randomEdgeNode()
+		self:regenerateRoute()
 	end
 end
 

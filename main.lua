@@ -20,6 +20,10 @@ end
 
 function love.mousepressed(x, y, b)
 	if b == 'l' then
+		if x > 50 and x < 150 and y > 520 and y < 570 then
+			myMap:startWave()
+		end
+
 		myMap:onClick(x, y)
 	elseif b == 'r' then
 		myMap:onRightClick(x, y)
@@ -32,8 +36,9 @@ function love.keypressed(k)
 		myMap:regenerateRoute()
 	end
 end
+
 function love.keypressed(key)
-   if key == "escape" then
-      love.event.quit()
-   end
+	if key == "escape" then
+		love.event.quit()
+	end
 end
